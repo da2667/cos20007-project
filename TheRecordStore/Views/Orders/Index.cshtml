@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TheRecordStore.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Records)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Completed)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Order o in Model)
+        {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.Records)
+                    </td>
+                <td>
+                        @Html.DisplayFor(modelItem => o.OrderDate)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => o.TotalPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.Completed)
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>

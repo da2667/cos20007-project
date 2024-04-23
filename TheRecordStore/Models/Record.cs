@@ -2,11 +2,12 @@
 {
     public class Record
     {
-        public int id { get; set; }
-        public string? artist { get; set; }
-        public string? album { get; set; }
-        public double price { get; set; }
-        public int quantity { get; set; }
-        public bool? available { get; set; }
+        public int RecordId { get; set; }
+        public int OrderId { get; set; }
+        public Order? Order { get; set; }
+        public required string Artist { get; set; }
+        public required string Album { get; set; }
+        public required double Price { get; set; }
+        public required int Stock { get; set; }
     }
 }

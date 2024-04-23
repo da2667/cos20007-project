@@ -251,3 +251,4 @@ C:\Users\Dylan\source\repos\TheRecordStore\TheRecordStore\obj\Debug\net8.0\refin
 C:\Users\Dylan\source\repos\TheRecordStore\TheRecordStore\obj\Debug\net8.0\TheRecordStore.pdb
 C:\Users\Dylan\source\repos\TheRecordStore\TheRecordStore\obj\Debug\net8.0\TheRecordStore.genruntimeconfig.cache
 C:\Users\Dylan\source\repos\TheRecordStore\TheRecordStore\obj\Debug\net8.0\ref\TheRecordStore.dll
+C:\Users\Dylan\source\repos\TheRecordStore\TheRecordStore\obj\Debug\net8.0\TheRecordStore.sourcelink.json

@@ -8,7 +8,7 @@ namespace TheRecordStore.Data
         public RecordStoreContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<RecordStoreContext>();
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=RecordDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=RecordStoreDb;Trusted_Connection=True;MultipleActiveResultSets=true");
 
             return new RecordStoreContext(optionsBuilder.Options);
         }

@@ -1,8 +1,7 @@
 ﻿namespace TheRecordStore.Models
 {
-    public class Cart
+    public class Cart : Order
     {
-        public List<Record>? items { get; set; }
-        public double totalPrice { get; set; }
+        
     }
 }

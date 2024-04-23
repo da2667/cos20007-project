@@ -1,0 +1,35 @@
+﻿@model TheRecordStore.Models.Order
+
+@{
+    ViewData["Title"] = "CompleteOrder";
+}
+
+<h1>Thanks for your order!</h1>
+
+<div>
+    <h4>Your Order from The Record Store</h4>
+    <hr />
+    <dl class="row">
+        @foreach (var item in Model.Records)
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.Artist)
+            </dd>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.Album)
+            </dd>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.Price)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd class="col-sm-10">
+            Date and Time of Order: @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dd class="col-sm-10">
+            Total: $@Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+    </dl>
+</div>

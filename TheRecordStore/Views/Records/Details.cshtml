@@ -10,39 +10,33 @@
     <h4>Record</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.artist)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Artist)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.artist)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Artist)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.album)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Album)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.album)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Album)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.price)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.price)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.quantity)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Stock)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.quantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.available)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.available)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Stock)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.RecordId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

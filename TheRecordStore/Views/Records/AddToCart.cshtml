@@ -1,0 +1,48 @@
+﻿@model TheRecordStore.Models.Order
+
+@{
+    ViewData["Title"] = "AddToCart";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Cart</h4>
+    <hr />
+    <dl class="row">
+        @foreach (var item in Model.Records)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => item.Artist)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.Artist)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => item.Album)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.Album)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => item.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.Price)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+    </dl>
+    <a asp-action="CompleteOrder" asp-route-id="@Model.OrderId">Complete Order</a>
+</div>

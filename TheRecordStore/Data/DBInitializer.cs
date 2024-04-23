@@ -16,15 +16,22 @@ namespace TheRecordStore.Data
                 return;
             }
 
+            
             List<Record> records = new List<Record>()
             {
-            new() { id=0,artist="Pink Floyd",album="The Wall",price=65.5,quantity=1,available=true }
+            new Record { Artist="Pink Floyd",Album="The Wall",Price=65.5,Stock=3 },
+            new Record { Artist="Pink Floyd",Album="Dark Side of the Moon",Price=60,Stock=4 },
+            new Record { Artist="Pixies",Album="Trompe Le Monde",Price=47.9,Stock=3 },
+            new Record { Artist="The Beatles",Album="Sgt Peppers Lonely Hearts Club Band",Price=66.5,Stock=2 },
+            new Record { Artist="Oasis",Album="Definetly Maybe",Price=72.5,Stock=1 },
+            new Record { Artist="Nirvana",Album="In Utero",Price=71.5,Stock=9 }
             };
 
             foreach (Record r in records)
             {
                 context.Records.Add(r);
             }
+
             context.SaveChanges();
         }
     }

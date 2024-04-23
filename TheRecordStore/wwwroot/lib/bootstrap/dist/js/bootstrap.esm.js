@@ -32,7 +32,7 @@ const toType = obj => {
 const getUID = prefix => {
   do {
     prefix += Math.floor(Math.random() * MAX_UID);
-  } while (document.getElementById(prefix));
+  } while (document.getElementByid(prefix));
 
   return prefix;
 };
@@ -3702,10 +3702,10 @@ class Tooltip extends BaseComponent {
     }
 
     const tip = this.getTipElement();
-    const tipId = getUID(this.constructor.NAME);
-    tip.setAttribute('id', tipId);
+    const tipid = getUID(this.constructor.NAME);
+    tip.setAttribute('id', tipid);
 
-    this._element.setAttribute('aria-describedby', tipId);
+    this._element.setAttribute('aria-describedby', tipid);
 
     if (this._config.animation) {
       tip.classList.add(CLASS_NAME_FADE$2);

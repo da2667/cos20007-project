@@ -4,56 +4,48 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Browse our Records</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.artist)
+                @Html.DisplayNameFor(model => model.Artist)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.album)
+                @Html.DisplayNameFor(model => model.Album)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.price)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.available)
+                @Html.DisplayNameFor(model => model.Stock)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.artist)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.album)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.available)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
+    @foreach (Record r in Model) {
+            @if (r.Stock > 0)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.Artist)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.Album)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => r.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.Stock)
+                    </td>
+                    <td>
+                        <a asp-action="AddToCart" asp-route-id="@r.RecordId">Add To Cart</a>
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>

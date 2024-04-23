@@ -25,7 +25,7 @@ namespace TheRecordStore.Controllers
             return View(await _context.Records.ToListAsync());
         }
 
-        // GET: Records/Details/5
+        // GET: Records/Details/{id}
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,125 +33,80 @@ namespace TheRecordStore.Controllers
                 return NotFound();
             }
 
-            var @record = await _context.Records
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (@record == null)
+            Record? record = await _context.Records.FirstOrDefaultAsync(m => m.RecordId == id);
+
+            if (record == null)
             {
                 return NotFound();
             }
 
-            return View(@record);
+            return View(record);
         }
 
-        // GET: Records/Create
-        public IActionResult Create()
+        // GET: AddToCart/{id}
+        public async Task<IActionResult> AddToCart(int? id)
         {
-            return View();
-        }
-
-        // POST: Records/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,artist,album,price,quantity,available")] Record @record)
-        {
-            if (ModelState.IsValid)
+            if(id==null)
             {
-                _context.Add(@record);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return BadRequest();
             }
-            return View(@record);
-        }
 
-        // GET: Records/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
+            Record? record = await _context.Records.FindAsync(id);
+
+            if(record == null)
             {
                 return NotFound();
             }
 
-            var @record = await _context.Records.FindAsync(id);
-            if (@record == null)
-            {
-                return NotFound();
-            }
-            return View(@record);
-        }
-
-        // POST: Records/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,artist,album,price,quantity,available")] Record @record)
-        {
-            if (id != @record.id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+            Order? order = await _context.Orders.Include(o => o.Records).FirstOrDefaultAsync();
+  
+            if (order == null)
                 {
-                    _context.Update(@record);
-                    await _context.SaveChangesAsync();
+
+                    order = new Order
+                    {
+                        Records = new List<Record> { record },
+                        OrderDate = DateTime.Now,
+                        TotalPrice = record.Price,
+                        Completed = false
+                    };
+
+                    _context.Orders.Add(order);
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!RecordExists(@record.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    order.Records.Add(record);
+                    order.TotalPrice += record.Price;
+                    record.Stock--;
+                    _context.Orders.Update(order);
+                    _context.Records.Update(record);
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(@record);
-        }
-
-        // GET: Records/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var @record = await _context.Records
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (@record == null)
-            {
-                return NotFound();
-            }
-
-            return View(@record);
-        }
-
-        // POST: Records/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var @record = await _context.Records.FindAsync(id);
-            if (@record != null)
-            {
-                _context.Records.Remove(@record);
-            }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
-        private bool RecordExists(int id)
+            return View(order);
+        }
+        public async Task<IActionResult> CompleteOrder(int? id)
         {
-            return _context.Records.Any(e => e.id == id);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            Order? order = await _context.Orders.Include(o => o.Records).FirstOrDefaultAsync(o => o.OrderId == id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            order.Completed = true;
+
+            _context.Orders.Update(order);
+
+            await _context.SaveChangesAsync();
+
+            return View(order);
         }
     }
 }

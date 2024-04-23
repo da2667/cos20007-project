@@ -10,10 +10,17 @@ namespace TheRecordStore.Data
         }
 
         public DbSet<Record> Records { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Record>().ToTable("Record");
+            modelBuilder.Entity<Record>().ToTable("Record")
+            .HasOne(r => r.Order)
+            .WithMany(o => o.Records)
+            .HasForeignKey(r => r.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Order>().ToTable("Order");
         }
     }
 }
